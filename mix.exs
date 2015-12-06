@@ -1,4 +1,4 @@
-defmodule DistanceApiMatrix.Mixfile do
+defmodule DistanceMatrixApi.Mixfile do
   use Mix.Project
 
   @description """
@@ -9,7 +9,7 @@ defmodule DistanceApiMatrix.Mixfile do
     [app: :distance_api_matrix,
      version: "0.0.1",
      elixir: "~> 1.0",
-     name: "DistanceApiMatrix",
+     name: "DistanceMatrixApi",
      description: @description,
      package: package,
      deps: deps,
@@ -23,7 +23,6 @@ defmodule DistanceApiMatrix.Mixfile do
   defp deps do
     [{:httpoison, "~> 0.8.0"},
     {:poison, "~> 1.5"},
-    {:pavlov, ">= 0.1.0", only: :test},
     {:exvcr, "~> 0.6", only: :test}]
   end
 

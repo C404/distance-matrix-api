@@ -1,4 +1,4 @@
-defmodule DistanceApiMatrixTest do
+defmodule DistanceMatrixApiTest do
   use ExUnit.Case, async: false
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
@@ -8,7 +8,7 @@ defmodule DistanceApiMatrixTest do
           destinations: ["Lyon", "Paris"]
         }
 
-      response = DistanceApiMatrix.get_distances(valid_params)
+      response = DistanceMatrixApi.get_distances(valid_params)
 
       assert response != %{}
       assert response["origin_addresses"] == ["Paris, France", "Lyon, France"]
@@ -31,7 +31,7 @@ defmodule DistanceApiMatrixTest do
 
       valid_options = %{mode: "bicycling", units: "imperial", language: "en-US"}
 
-      response = DistanceApiMatrix.get_distances(valid_params, valid_options)
+      response = DistanceMatrixApi.get_distances(valid_params, valid_options)
 
       assert "296 mi" == response["rows"]
                          |> List.first
@@ -48,7 +48,7 @@ defmodule DistanceApiMatrixTest do
           destinations: []
         }
 
-      response = DistanceApiMatrix.get_distances(valid_params)
+      response = DistanceMatrixApi.get_distances(valid_params)
 
       assert response != %{}
       assert response["origin_addresses"] == []

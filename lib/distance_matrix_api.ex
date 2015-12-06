@@ -1,4 +1,4 @@
-defmodule DistanceApiMatrix do
+defmodule DistanceMatrixApi do
   @base_url "https://maps.googleapis.com/maps/api/distancematrix/json?"
 
   def get_distances(params, options \\ %{}) do
