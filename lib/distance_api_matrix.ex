@@ -6,14 +6,14 @@ defmodule DistanceApiMatrix do
     |> Map.merge(options)
     |> URI.encode_query
     |> build_url
-    |> get
+    |> get!
   end
 
   defp list_to(params) when is_list(params), do: Enum.join(params, "|")
 
   defp build_url(params), do: @base_url <> params
 
-  defp get(url) do
+  defp get!(url) do
     {:ok, %HTTPoison.Response{status_code: 200, body: body}} = HTTPoison.get(url, [], [])
 
     body |> Poison.decode!

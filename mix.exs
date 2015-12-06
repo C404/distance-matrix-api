@@ -21,7 +21,10 @@ defmodule DistanceApiMatrix.Mixfile do
   end
 
   defp deps do
-    [{:httpoison, "~> 0.8.0"}, {:poison, "~> 1.5"}]
+    [{:httpoison, "~> 0.8.0"},
+    {:poison, "~> 1.5"},
+    {:pavlov, ">= 0.1.0", only: :test},
+    {:exvcr, "~> 0.6", only: :test}]
   end
 
   defp package do
