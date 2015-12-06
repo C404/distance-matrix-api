@@ -1,0 +1,31 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=&origins=Baylabamba"
+    },
+    "response": {
+      "body": "{\n   \"destination_addresses\" : [],\n   \"origin_addresses\" : [],\n   \"rows\" : [],\n   \"status\" : \"INVALID_REQUEST\"\n}\n",
+      "headers": {
+        "Content-Type": "application/json; charset=UTF-8",
+        "Date": "Sun, 06 Dec 2015 15:13:23 GMT",
+        "Expires": "Mon, 07 Dec 2015 15:13:23 GMT",
+        "Cache-Control": "public, max-age=86400",
+        "Server": "mafe",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Alternate-Protocol": "443:quic,p=0",
+        "Alt-Svc": "clear",
+        "Accept-Ranges": "none",
+        "Vary": "Accept-Language,Accept-Encoding",
+        "Transfer-Encoding": "chunked"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
