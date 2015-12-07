@@ -27,7 +27,7 @@ defmodule DistanceMatrixApi.Mixfile do
   end
 
   defp package do
-    [ maintainers: ["Thibault Hagler"],
+    [ maintainers: ["C404"],
       licenses: ["MIT"],
       links: %{"Github" => "https://github.com/C404/distance-api-matrix"} ]
   end
