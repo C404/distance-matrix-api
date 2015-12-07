@@ -2,6 +2,11 @@ defmodule DistanceMatrixApiTest do
   use ExUnit.Case, async: false
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
+  setup_all do
+    ExVCR.Config.cassette_library_dir("test/cassettes")
+    :ok
+  end
+
   test ".get_distances response for success" do
     use_cassette "success" do
       valid_params = %{origins: ["Paris", "Lyon"],

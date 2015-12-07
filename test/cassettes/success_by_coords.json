@@ -12,8 +12,8 @@
       "body": "{\n   \"destination_addresses\" : [ \"21 Rue de la République, 69002 Lyon, France\" ],\n   \"origin_addresses\" : [ \"66 Rue de Rivoli, 75004 Paris, France\" ],\n   \"rows\" : [\n      {\n         \"elements\" : [\n            {\n               \"distance\" : {\n                  \"text\" : \"465 km\",\n                  \"value\" : 465423\n               },\n               \"duration\" : {\n                  \"text\" : \"4 hours 16 mins\",\n                  \"value\" : 15350\n               },\n               \"status\" : \"OK\"\n            }\n         ]\n      }\n   ],\n   \"status\" : \"OK\"\n}\n",
       "headers": {
         "Content-Type": "application/json; charset=UTF-8",
-        "Date": "Mon, 07 Dec 2015 18:26:16 GMT",
-        "Expires": "Tue, 08 Dec 2015 18:26:16 GMT",
+        "Date": "Mon, 07 Dec 2015 18:51:04 GMT",
+        "Expires": "Tue, 08 Dec 2015 18:51:04 GMT",
         "Cache-Control": "public, max-age=86400",
         "Server": "mafe",
         "X-XSS-Protection": "1; mode=block",

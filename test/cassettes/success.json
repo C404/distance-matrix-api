@@ -12,8 +12,8 @@
       "body": "{\n   \"destination_addresses\" : [ \"Lyon, France\", \"Paris, France\" ],\n   \"origin_addresses\" : [ \"Paris, France\", \"Lyon, France\" ],\n   \"rows\" : [\n      {\n         \"elements\" : [\n            {\n               \"distance\" : {\n                  \"text\" : \"465 km\",\n                  \"value\" : 465423\n               },\n               \"duration\" : {\n                  \"text\" : \"4 hours 16 mins\",\n                  \"value\" : 15350\n               },\n               \"status\" : \"OK\"\n            },\n            {\n               \"distance\" : {\n                  \"text\" : \"1 m\",\n                  \"value\" : 0\n               },\n               \"duration\" : {\n                  \"text\" : \"1 min\",\n                  \"value\" : 0\n               },\n               \"status\" : \"OK\"\n            }\n         ]\n      },\n      {\n         \"elements\" : [\n            {\n               \"distance\" : {\n                  \"text\" : \"1 m\",\n                  \"value\" : 0\n               },\n               \"duration\" : {\n                  \"text\" : \"1 min\",\n                  \"value\" : 0\n               },\n               \"status\" : \"OK\"\n            },\n            {\n               \"distance\" : {\n                  \"text\" : \"466 km\",\n                  \"value\" : 465599\n               },\n               \"duration\" : {\n                  \"text\" : \"4 hours 16 mins\",\n                  \"value\" : 15340\n               },\n               \"status\" : \"OK\"\n            }\n         ]\n      }\n   ],\n   \"status\" : \"OK\"\n}\n",
       "headers": {
         "Content-Type": "application/json; charset=UTF-8",
-        "Date": "Sun, 06 Dec 2015 14:25:30 GMT",
-        "Expires": "Mon, 07 Dec 2015 14:25:30 GMT",
+        "Date": "Mon, 07 Dec 2015 18:51:03 GMT",
+        "Expires": "Tue, 08 Dec 2015 18:51:03 GMT",
         "Cache-Control": "public, max-age=86400",
         "Server": "mafe",
         "X-XSS-Protection": "1; mode=block",
