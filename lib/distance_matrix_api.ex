@@ -1,17 +1,34 @@
 defmodule DistanceMatrixApi do
+  @moduledoc """
+  Provides functions to interact with Google Distance Matrix API.
+  """
+
   @base_url "https://maps.googleapis.com/maps/api/distancematrix/json?"
   @separator "|"
 
+
+  @doc """
+  Return a Map with basic Google distance api matrix format.
+  Expected params: %{origins: ["address", "address"], destinations: ["address", "address"]}
+  """
   def get_distances(params, options \\ %{}) do
     %{origins: addresses_to(params[:origins]),
       destinations: addresses_to(params[:destinations])} |> make_request(options)
   end
 
+  @doc """
+  Return a Map with basic Google distance api matrix format.
+  Expected params: %{origins: [%{lat: -45.3344, long: 42.556}, %{lat: 22.3344, long: -66.556}],
+                     destinations: [%{lat: 22.3344, long: -66.556}, %{lat: -45.3344, long: 42.556}]}
+  """
   def get_distances_by_coords(params, options \\ %{}) do
     %{origins: coords_to(params[:origins]),
       destinations: coords_to(params[:destinations])} |> make_request(options)
   end
 
+  @doc """
+  Format request url.
+  """
   defp make_request(params, options) do
     params
     |> Map.merge(options)
@@ -30,6 +47,9 @@ defmodule DistanceMatrixApi do
 
   defp build_url(params), do: @base_url <> params
 
+  @doc """
+  Call formated url / match status_code: 200 / returns decoded body
+  """
   defp get!(url) do
     {:ok, %HTTPoison.Response{status_code: 200, body: body}} = HTTPoison.get(url, [], [])
 
