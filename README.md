@@ -11,18 +11,22 @@ todo
 
 ## Usage
 
-    addresses_params = %{origins: ["842-844 Rossville Ave, Staten Island, NY, State of New York 10309, United states", "Paris"],
-                     destinations: ["847-899 Coolidge Ave, Woodbridge, NJ 07095, United states", "Lyon"]}
-
     # Basic call
+    addresses_params = %{origins: ["842-844 Rossville Ave, Staten Island, NY, State of New York 10309, United states", "Paris"],
+                         destinations: ["847-899 Coolidge Ave, Woodbridge, NJ 07095, United states", "Lyon"]}
+
     response = DistanceMatrixApi.get_distances(addresses_params)
+
+    # Call with coordinates
+    coords_params = %{destinations: [%{lat: 45.764043, long: 4.835658999999964}, %{lat: 48.856614, long: 2.3522219000000177}],
+                      origins: [%{lat: 48.856614, long: 2.3522219000000177}, %{lat: 45.764043, long: 4.835658999999964}]}
+
+    response = DistanceMatrixApi.get_distances_by_coords(coords_params)
 
     # With custom options
     options_params = %{mode: "bicycling", units: "imperial", language: "en-US"}
 
     response = DistanceMatrixApi.get_distances(addresses_params, options_params)
-
-    IO.puts response
 
 ## Options
 
@@ -31,7 +35,6 @@ All options defined in the [Google distance matrix documentation](https://develo
 ## Todo
 
 - Set default options
-- Get distances from coordinates
 - Handle rate limiting
 - Handle max encoded url length
 - Add some more guards on options
