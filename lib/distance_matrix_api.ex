@@ -3,11 +3,8 @@ defmodule DistanceMatrixApi do
   Provides functions to interact with Google Distance Matrix API.
   """
 
-  use HTTPoison.Base
-
   @base_url "https://maps.googleapis.com/maps/api/distancematrix/json?"
   @separator "|"
-
 
 
   @doc """
@@ -48,6 +45,8 @@ defmodule DistanceMatrixApi do
   defp build_url(params), do: @base_url <> params
 
   defp get!(url) do
+    HTTPoison.start
+
     {:ok, %HTTPoison.Response{status_code: 200, body: body}} = HTTPoison.get(url, [], [])
 
     body |> Poison.decode!

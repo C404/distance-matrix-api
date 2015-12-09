@@ -3,7 +3,7 @@ defmodule DistanceMatrixApi.Mixfile do
 
   def project do
     [app: :distance_api_matrix,
-     version: "1.0.0",
+     version: "1.0.2",
      elixir: "~> 1.0",
      name: "DistanceMatrixApi",
      description: description,
