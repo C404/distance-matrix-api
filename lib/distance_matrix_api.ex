@@ -27,6 +27,8 @@ defmodule DistanceMatrixApi do
   end
 
   defp make_request(params, options) do
+    if key, do: params = Map.put(params, :key, key)
+
     params
     |> Map.merge(options)
     |> URI.encode_query
@@ -50,5 +52,9 @@ defmodule DistanceMatrixApi do
     {:ok, %HTTPoison.Response{status_code: 200, body: body}} = HTTPoison.get(url, [], [])
 
     body |> Poison.decode!
+  end
+
+  defp key do
+    Application.get_env(:distance_api_matrix, :api_key)
   end
 end
