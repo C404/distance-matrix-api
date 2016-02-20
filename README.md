@@ -44,7 +44,7 @@ Check an example of the output format [here](https://maps.googleapis.com/maps/ap
 
 All options defined in the [Google distance matrix documentation](https://developers.google.com/maps/documentation/distance-matrix/intro) are available, such as: `mode` `key` `language` `units` etc.
 
-**ApiKey**
+**Key :**
 
 Set by default if `Application.get_env(:distance_api_matrix, :api_key)` is present.
 
