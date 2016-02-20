@@ -44,6 +44,10 @@ Check an example of the output format [here](https://maps.googleapis.com/maps/ap
 
 All options defined in the [Google distance matrix documentation](https://developers.google.com/maps/documentation/distance-matrix/intro) are available, such as: `mode` `key` `language` `units` etc.
 
+**ApiKey**
+
+Set by default if `Application.get_env(:distance_api_matrix, :api_key)` is present.
+
 ## Todo
 
 - Set default options
@@ -58,7 +62,7 @@ All options defined in the [Google distance matrix documentation](https://develo
 2. Create your feature branch: `git checkout -b my-new-feature`
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D 
+5. Submit a pull request :D
 
 ## Testing
 
