@@ -6,25 +6,28 @@ defmodule DistanceMatrixApi do
   @base_url "https://maps.googleapis.com/maps/api/distancematrix/json?"
   @separator "|"
 
-
   @doc """
-  Return a Map with basic Google distance api matrix format.
-  Expected params: %{origins: ["address", "address"], destinations: ["address", "address"]}
+  Expected usage :
+    travels = DistanceMatrixApi.TravelList.new |>
+      DistanceMatrixApi.TravelList.add_entry(%{origin: "Caen", destination: "Paris"}) |>
+      DistanceMatrixApi.TravelList.add_entry(%{origin: "Lyon", destination: "Nice"}) |>
+      DistanceMatrixApi.TravelList.add_entry(%{origin: %{lat: 45.764043, long: 4.835658999999964}, destination: %{lat: 48.856614, long: 2.3522219000000177}})
+
+    travels |> DistanceMatrixApi.distances
   """
-  def get_distances(params, options \\ %{}) do
-    %{origins: addresses_to(params[:origins]),
-      destinations: addresses_to(params[:destinations])} |> make_request(options)
+  def distances(travel_list, options \\ %{}) do
+    %{origins: convert(:origin, travel_list), destinations: convert(:destination, travel_list)}
+    |> make_request(options)
   end
 
-  @doc """
-  Return a Map with basic Google distance api matrix format.
-  Expected params: %{origins: [%{lat: -45.3344, long: 42.556}, %{lat: 22.3344, long: -66.556}],
-                     destinations: [%{lat: 22.3344, long: -66.556}, %{lat: -45.3344, long: 42.556}]}
-  """
-  def get_distances_by_coords(params, options \\ %{}) do
-    %{origins: coords_to(params[:origins]),
-      destinations: coords_to(params[:destinations])} |> make_request(options)
+  defp convert(key, travels) do
+    travels
+    |> Enum.reduce("", fn(x, acc) -> "#{acc}#{@separator}#{to_param(x[key])}" end)
+    |> String.slice(1..-1)
   end
+
+  defp to_param(travel) when is_binary(travel), do: travel
+  defp to_param(travel) when is_map(travel), do: "#{travel.lat},#{travel.long}"
 
   defp make_request(params, options) do
     if key, do: params = Map.put(params, :key, key)
@@ -35,14 +38,6 @@ defmodule DistanceMatrixApi do
     |> build_url
     |> get!
   end
-
-  defp coords_to(params) do
-    params
-    |> Enum.reduce("", fn(x, acc) -> "#{acc}#{@separator}#{x.lat},#{x.long}" end)
-    |> String.slice(1..-1)
-  end
-
-  defp addresses_to(params) when is_list(params), do: Enum.join(params, @separator)
 
   defp build_url(params), do: @base_url <> params
 
