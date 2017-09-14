@@ -6,9 +6,9 @@ defmodule DistanceMatrixApi.Mixfile do
      version: "2.0.1",
      elixir: "~> 1.0",
      name: "DistanceMatrixApi",
-     description: description,
-     package: package,
-     deps: deps,
+     description: description(),
+     package: package(),
+     deps: deps(),
      source_url: "https://github.com/C404/distance-api-matrix"]
   end
 
