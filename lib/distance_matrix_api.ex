@@ -46,7 +46,7 @@ defmodule DistanceMatrixApi do
 
     {:ok, %HTTPoison.Response{status_code: 200, body: body}} = HTTPoison.get(url, [], [])
 
-    body |> Poison.decode!
+    body |> Jason.decode!
   end
 
   defp key do
