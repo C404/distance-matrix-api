@@ -58,14 +58,19 @@ origin_addresses = x["origin_addresses"]
 destination_addresses = x["destination_addresses"]
 rows = x["rows"]
 
-    case  x["status"] do
-    "OK" -> origin_addresses
+ case  x["status"] do
+    "OK" ->
+    origin_addresses
     |> Enum.with_index
     |> Enum.map(fn({x, i}) ->
-    %{origin: x, destination: Enum.at(destination_addresses, i) , rows: Enum.at(rows, i)}
+     row = Enum.at(rows, i)
+     element = Enum.at(row["elements"], 1)
+    %{origin: x, destination: Enum.at(destination_addresses, i) , rows: element}
     end)
     _-> x
     end
+
+
 
 end
 end
