@@ -53,7 +53,7 @@ defmodule DistanceMatrixApi do
     Application.get_env(:distance_api_matrix, :api_key)
   end
 
-  def to_map(x)do
+  def each(x)do
 origin_addresses = x["origin_addresses"]
 destination_addresses = x["destination_addresses"]
 rows = x["rows"]
@@ -66,6 +66,24 @@ rows = x["rows"]
      row = Enum.at(rows, i)
      element = Enum.at(row["elements"], 1)
     %{origin: x, destination: Enum.at(destination_addresses, i) , rows: element}
+    end)
+    _-> x
+    end
+
+    def computed(x)do
+origin_addresses = x["origin_addresses"]
+destination_addresses = x["destination_addresses"]
+rows = x["rows"]
+
+ case  x["status"] do
+    "OK" ->
+    origin = List.first(origin_addresses)
+    destination = List.last(destination_addresses)
+
+    row = List.first(rows)
+    element = List.last(row["elements"])
+
+    %{origin: origin, destination: destination , rows: element}
     end)
     _-> x
     end
