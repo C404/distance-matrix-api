@@ -30,6 +30,10 @@ iex> travels |> DistanceMatrixApi.distances
 #with custom options
 iex> options = %{mode: "bicycling", units: "imperial", language: "en-US"}
 iex> travels |> DistanceMatrixApi.distances(options)
+
+# return a map if the result is successul
+iex> result = travels |> DistanceMatrixApi.distances
+iex> result |> DistanceMatrixApi.to_map
 ```
 
 Check an example of the output format [here](https://maps.googleapis.com/maps/api/distancematrix/json?origins=Rue%20de%20Lappe,%20Paris%7CPlace%20de%20l%27Opera,%20Paris&destinations=Place%20de%20l%27Opera,%20Paris%7CPlace%20Gambetta,%20Paris&mode=bicycling&language=fr-FR)
