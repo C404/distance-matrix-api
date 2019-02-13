@@ -53,7 +53,7 @@ defmodule DistanceMatrixApi do
     Application.get_env(:distance_api_matrix, :api_key)
   end
 
-  def each(x)do
+  def each(x) do
 origin_addresses = x["origin_addresses"]
 destination_addresses = x["destination_addresses"]
 rows = x["rows"]
@@ -69,13 +69,14 @@ rows = x["rows"]
     end)
     _-> x
     end
+    end
 
     def total(x)do
       all = each(x)
       total_distance = Enum.reduce(all, fn(x, acc) -> x.distance + acc end)
       total_time = Enum.reduce(all, fn(x, acc) -> x.time + acc end)
       %{distance: total_distance, time: total_time}
-    end}
+    end
 
     def computed(x)do
 origin_addresses = x["origin_addresses"]
@@ -97,5 +98,4 @@ rows = x["rows"]
 
 
 
-end
 end
