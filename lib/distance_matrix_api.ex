@@ -92,10 +92,8 @@ rows = x["rows"]
     element = List.last(row["elements"])
 
     %{origin: origin, destination: destination , rows: element}
-    end)
-    _-> x
+    _ -> x
     end
 
-
-
+end
 end
