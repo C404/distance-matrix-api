@@ -22,7 +22,7 @@ defmodule DistanceMatrixApi do
 
   defp convert(key, travels) do
     travels
-    |> Enum.reduce("", fn(x, acc) -> "#{acc}#{@separator}#{to_param(x[key])}" end)
+    |> Enum.reduce("", fn x, acc -> "#{acc}#{@separator}#{to_param(x[key])}" end)
     |> String.slice(1..-1)
   end
 
@@ -30,11 +30,11 @@ defmodule DistanceMatrixApi do
   defp to_param(travel) when is_map(travel), do: "#{travel.lat},#{travel.long}"
 
   defp make_request(params, options) do
-    if key, do: params = Map.put(params, :key, key)
+    if key(), do:  Map.put(params, :key, key())
 
     params
     |> Map.merge(options)
-    |> URI.encode_query
+    |> URI.encode_query()
     |> build_url
     |> get!
   end
@@ -42,11 +42,11 @@ defmodule DistanceMatrixApi do
   defp build_url(params), do: @base_url <> params
 
   defp get!(url) do
-    HTTPoison.start
+    HTTPoison.start()
 
     {:ok, %HTTPoison.Response{status_code: 200, body: body}} = HTTPoison.get(url, [], [])
 
-    body |> Jason.decode!
+    body |> Jason.decode!()
   end
 
   defp key do
@@ -54,46 +54,49 @@ defmodule DistanceMatrixApi do
   end
 
   def each(x) do
-origin_addresses = x["origin_addresses"]
-destination_addresses = x["destination_addresses"]
-rows = x["rows"]
+    origin_addresses = x["origin_addresses"]
+    destination_addresses = x["destination_addresses"]
+    rows = x["rows"]
 
- case  x["status"] do
-    "OK" ->
-    origin_addresses
-    |> Enum.with_index
-    |> Enum.map(fn({x, i}) ->
-     row = Enum.at(rows, i)
-     element = Enum.at(row["elements"], 1)
-    %{origin: x, destination: Enum.at(destination_addresses, i) , rows: element}
-    end)
-    _-> x
+    case x["status"] do
+      "OK" ->
+        origin_addresses
+        |> Enum.with_index()
+        |> Enum.map(fn {x, i} ->
+          row = Enum.at(rows, i)
+          element = Enum.at(row["elements"], 1)
+          %{origin: x, destination: Enum.at(destination_addresses, i), rows: element}
+        end)
+
+      _ ->
+        x
     end
+  end
+
+  def total(x) do
+    all = each(x)
+    total_distance = Enum.reduce(all, fn x, acc -> x.distance + acc end)
+    total_time = Enum.reduce(all, fn x, acc -> x.time + acc end)
+    %{distance: total_distance, time: total_time}
+  end
+
+  def computed(x) do
+    origin_addresses = x["origin_addresses"]
+    destination_addresses = x["destination_addresses"]
+    rows = x["rows"]
+
+    case x["status"] do
+      "OK" ->
+        origin = List.first(origin_addresses)
+        destination = List.last(destination_addresses)
+
+        row = List.first(rows)
+        element = List.last(row["elements"])
+
+        %{origin: origin, destination: destination, rows: element}
+
+      _ ->
+        x
     end
-
-    def total(x)do
-      all = each(x)
-      total_distance = Enum.reduce(all, fn(x, acc) -> x.distance + acc end)
-      total_time = Enum.reduce(all, fn(x, acc) -> x.time + acc end)
-      %{distance: total_distance, time: total_time}
-    end
-
-    def computed(x)do
-origin_addresses = x["origin_addresses"]
-destination_addresses = x["destination_addresses"]
-rows = x["rows"]
-
- case  x["status"] do
-    "OK" ->
-    origin = List.first(origin_addresses)
-    destination = List.last(destination_addresses)
-
-    row = List.first(rows)
-    element = List.last(row["elements"])
-
-    %{origin: origin, destination: destination , rows: element}
-    _ -> x
-    end
-
-end
+  end
 end
