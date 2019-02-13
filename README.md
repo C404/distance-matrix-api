@@ -35,9 +35,12 @@ iex> travels |> DistanceMatrixApi.distances(options)
 iex> result = travels |> DistanceMatrixApi.distances
 iex> result |> DistanceMatrixApi.each
 
-# return a map of the google computed distance (googles best guess) etc the result is successul
+# return the distance between beginning and end addresses regardless of points in between if successul
 iex> result = travels |> DistanceMatrixApi.distances
-iex> result |> DistanceMatrixApi.computed
+iex> result |> DistanceMatrixApi.diff_first_last
+# return the total distance if successful
+iex> result = travels |> DistanceMatrixApi.distances
+iex> result |> DistanceMatrixApi.total
 ```
 
 Check an example of the output format [here](https://maps.googleapis.com/maps/api/distancematrix/json?origins=Rue%20de%20Lappe,%20Paris%7CPlace%20de%20l%27Opera,%20Paris&destinations=Place%20de%20l%27Opera,%20Paris%7CPlace%20Gambetta,%20Paris&mode=bicycling&language=fr-FR)

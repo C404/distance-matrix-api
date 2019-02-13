@@ -70,6 +70,13 @@ rows = x["rows"]
     _-> x
     end
 
+    def total(x)do
+      all = each(x)
+      total_distance = Enum.reduce(all, fn(x, acc) -> x.distance + acc end)
+      total_time = Enum.reduce(all, fn(x, acc) -> x.time + acc end)
+      %{distance: total_distance, time: total_time}
+    end}
+
     def computed(x)do
 origin_addresses = x["origin_addresses"]
 destination_addresses = x["destination_addresses"]
