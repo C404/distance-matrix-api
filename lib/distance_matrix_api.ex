@@ -30,9 +30,9 @@ defmodule DistanceMatrixApi do
   defp to_param(travel) when is_map(travel), do: "#{travel.lat},#{travel.long}"
 
   defp make_request(params, options) do
-    if key(), do:  Map.put(params, :key, key())
 
     params
+    |> Map.put(:key, key())
     |> Map.merge(options)
     |> URI.encode_query()
     |> build_url
@@ -49,7 +49,7 @@ defmodule DistanceMatrixApi do
     body |> Jason.decode!()
   end
 
-  defp key do
+  defp key() do
     Application.get_env(:distance_api_matrix, :api_key)
   end
 
