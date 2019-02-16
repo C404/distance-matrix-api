@@ -13,15 +13,13 @@ defmodule DistanceMatrixApiTest do
         DistanceMatrixApi.TravelList.new()
         |> DistanceMatrixApi.TravelList.add_entry(%{origin: "Caen", destination: "Paris"})
         |> DistanceMatrixApi.TravelList.add_entry(%{origin: "Lyon", destination: "Nice"})
-        |> DistanceMatrixApi.TravelList.add_entry(%{
-          origin: %{lat: 45.764043, long: 4.835658999999964},
-          destination: %{lat: 48.856614, long: 2.3522219000000177}
-        })
+        |> DistanceMatrixApi.TravelList.add_entry(%{origin: %{lat: 45.764043, long: 4.835658999999964},destination: %{lat: 48.856614, long: 2.3522219000000177}})
 
       response = travels |> DistanceMatrixApi.distances()
 
       assert response != %{}
 
+      if("" == response["error_message"]) do
       assert response["origin_addresses"] == [
                "Caen, France",
                "Lyon, France",
@@ -41,6 +39,9 @@ defmodule DistanceMatrixApiTest do
                |> List.first()
                |> Map.get("distance")
                |> Map.get("text")
+      end
+
+
     end
   end
 
