@@ -22,7 +22,7 @@ defmodule DistanceMatrixApi do
 
   defp convert(key, travels) do
     travels
-    |> Enum.reduce("", fn x, acc -> "#{acc}#{@separator}#{to_param(x[key])}" end)
+    |> Enum.reduce("", fn(x, acc) -> "#{acc}#{@separator}#{to_param(x[key])}" end)
     |> String.slice(1..-1)
   end
 
@@ -30,11 +30,11 @@ defmodule DistanceMatrixApi do
   defp to_param(travel) when is_map(travel), do: "#{travel.lat},#{travel.long}"
 
   defp make_request(params, options) do
+    if key, do: params = Map.put(params, :key, key)
 
     params
-    |> Map.put(:key, key())
     |> Map.merge(options)
-    |> URI.encode_query()
+    |> URI.encode_query
     |> build_url
     |> get!
   end
@@ -44,9 +44,11 @@ defmodule DistanceMatrixApi do
   defp get!(url) do
     HTTPoison.start()
 
+    IO.inspect url
+
     {:ok, %HTTPoison.Response{status_code: 200, body: body}} = HTTPoison.get(url, [], [])
 
-    body |> Jason.decode!()
+    body |> Jason.decode!
   end
 
   defp key() do
