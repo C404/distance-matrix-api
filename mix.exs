@@ -1,8 +1,6 @@
 defmodule DistanceMatrixApi.Mixfile do
   use Mix.Project
 
-  @project_url "https://github.com/C404/distance-matrix-api"
-
   def project do
     [
       app: :distance_matrix_api,
@@ -12,7 +10,7 @@ defmodule DistanceMatrixApi.Mixfile do
       description: description(),
       package: package(),
       deps: deps(),
-      source_url: project_url
+      source_url: "https://github.com/C404/distance-matrix-api"
     ]
   end
 
@@ -35,7 +33,7 @@ defmodule DistanceMatrixApi.Mixfile do
       files: ~w(lib mix.exs README.md LICENSE VERSION),
       maintainers: ["C404", "mithereal"],
       licenses: ["MIT"],
-      links: %{"Github" => project_url}
+      links: %{"Github" => "https://github.com/C404/distance-matrix-api"}
     ]
   end
 end
