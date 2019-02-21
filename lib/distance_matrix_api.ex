@@ -44,15 +44,13 @@ defmodule DistanceMatrixApi do
   defp get!(url) do
     HTTPoison.start()
 
-    IO.inspect url
-
     {:ok, %HTTPoison.Response{status_code: 200, body: body}} = HTTPoison.get(url, [], [])
 
     body |> Jason.decode!
   end
 
   defp key() do
-    Application.get_env(:distance_api_matrix, :api_key)
+    Application.get_env(:distance_matrix_api, :api_key)
   end
 
   def each(x) do

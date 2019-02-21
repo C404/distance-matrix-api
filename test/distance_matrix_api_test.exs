@@ -21,32 +21,37 @@ defmodule DistanceMatrixApiTest do
 
       # responses are empty in test mode due to invalid api key, changes are reflected to pass ci
 
-      if("" == response["error_message"]) do
-      assert response["origin_addresses"] == []
-#             assert response["origin_addresses"] == [
-#               "Caen, France",
-#               "Lyon, France",
-#               "21 Rue de la République, 69002 Lyon, France"
-#             ]
+      case(Mix.env)do
+        :test ->       if("" == response["error_message"]) do
+                           assert response["origin_addresses"] == []
+                           assert response["destination_addresses"] == []
+                           assert response["origin_addresses"] == []
+                           end
+        :dev -> if("" == response["error_message"]) do
+              assert response["origin_addresses"] == [
+               "Caen, France",
+               "Lyon, France",
+               "21 Rue de la République, 69002 Lyon, France"
+             ]
 
-      assert response["destination_addresses"] == []
-      #assert response["destination_addresses"] == [
-#               "Paris, France",
-#               "Nice, France",
-#               "60 Rue de Rivoli, 75004 Paris, France"
-#             ]
+      assert response["destination_addresses"] == [
+               "Paris, France",
+               "Nice, France",
+               "60 Rue de Rivoli, 75004 Paris, France"
+             ]
 
-#      assert "234 km" ==
-#               response["rows"]
-#               |> List.first()
-#               |> Map.get("elements")
-#               |> List.first()
-#               |> Map.get("distance")
-#               |> Map.get("text")
+      assert "234 km" ==
+               response["rows"]
+               |> List.first()
+               |> Map.get("elements")
+               |> List.first()
+               |> Map.get("distance")
+               |> Map.get("text")
       end
 
 
     end
+  end
   end
 
   test ".distances response for success with options" do
@@ -66,29 +71,31 @@ defmodule DistanceMatrixApiTest do
 
       assert response != %{}
 
-      assert response["origin_addresses"] == []
-#
-#      assert response["origin_addresses"] == [
-#               "Caen, France",
-#               "Lyon, France",
-#               "15 Rue de la Poulaillerie, 69002 Lyon, France"
-#             ]
+      case(Mix.env)do
+      :test ->
+        assert response["origin_addresses"] == []
+        assert response["destination_addresses"] == []
+      :dev ->       assert response["origin_addresses"] == [
+                              "Caen, France",
+                              "Lyon, France",
+                              "15 Rue de la Poulaillerie, 69002 Lyon, France"
+                            ]
 
-      assert response["destination_addresses"] == []
+                     assert response["destination_addresses"] == [
+                              "Paris, France",
+                              "Nice, France",
+                              "94 Quai de l'Hôtel de ville, 75004 Paris, France"
+                            ]
 
-#      assert response["destination_addresses"] == [
-#               "Paris, France",
-#               "Nice, France",
-#               "94 Quai de l'Hôtel de ville, 75004 Paris, France"
-#             ]
-#
-#      assert "153 mi" ==
-#               response["rows"]
-#               |> List.first()
-#               |> Map.get("elements")
-#               |> List.first()
-#               |> Map.get("distance")
-#               |> Map.get("text")
+                     assert "153 mi" ==
+                              response["rows"]
+                              |> List.first()
+                              |> Map.get("elements")
+                              |> List.first()
+                              |> Map.get("distance")
+                              |> Map.get("text")
+      end
+
     end
   end
 
