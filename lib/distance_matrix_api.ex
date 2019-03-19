@@ -42,14 +42,61 @@ defmodule DistanceMatrixApi do
   defp build_url(params), do: @base_url <> params
 
   defp get!(url) do
-    HTTPoison.start
+    HTTPoison.start()
 
     {:ok, %HTTPoison.Response{status_code: 200, body: body}} = HTTPoison.get(url, [], [])
 
-    body |> Poison.decode!
+    body |> Jason.decode!
   end
 
-  defp key do
-    Application.get_env(:distance_api_matrix, :api_key)
+  defp key() do
+    Application.get_env(:distance_matrix_api, :api_key)
+  end
+
+  def each(x) do
+    origin_addresses = x["origin_addresses"]
+    destination_addresses = x["destination_addresses"]
+    rows = x["rows"]
+
+    case x["status"] do
+      "OK" ->
+        origin_addresses
+        |> Enum.with_index()
+        |> Enum.map(fn {x, i} ->
+          row = Enum.at(rows, i)
+          element = Enum.at(row["elements"], 1)
+          %{origin: x, destination: Enum.at(destination_addresses, i), rows: element}
+        end)
+
+      _ ->
+        x
+    end
+  end
+
+  def total(x) do
+    all = each(x)
+    total_distance = Enum.reduce(all, fn x, acc -> x.distance + acc end)
+    total_time = Enum.reduce(all, fn x, acc -> x.time + acc end)
+    %{distance: total_distance, time: total_time}
+  end
+
+  def computed(x) do
+    origin_addresses = x["origin_addresses"]
+    destination_addresses = x["destination_addresses"]
+    rows = x["rows"]
+
+    case x["status"] do
+      "OK" ->
+        origin = List.first(origin_addresses)
+        destination = List.last(destination_addresses)
+
+        row = List.first(rows)
+        element = List.last(row["elements"])
+
+        %{origin: origin, destination: destination, rows: element}
+
+      _ ->
+        x
+    end
   end
 end
